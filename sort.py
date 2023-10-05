@@ -1,7 +1,8 @@
-import random
+import random, time
 
-def gen():
-    size = int(input())
+f = open('time.txt', 'w')
+
+def gen(size):
     lst = []
 
     for _ in range(size):
@@ -17,7 +18,6 @@ def bubble(lst):
 
     return lst
 
-
 def sort(lst):
     n = len(lst)
     for i in range(n - 1):
@@ -29,6 +29,40 @@ def sort(lst):
 
     return lst
 
-lst = gen()
-print(sort(lst))
+def quickSort(lst):
+    if len(lst) <= 1:
+        return lst
+    else:
+        q = random.choice(lst)
+        L = []
+        M = []
+        R = []
+        for element in lst:
+            if element < q:
+                L.append(element)
+            elif element > q:
+                R.append(element)
+            else:
+                M.append(element)
 
+        return quickSort(L) + M + quickSort(R)
+
+size = int(input('enter size: '))
+lst = gen(size)
+
+startFirst = time.time()
+lst2 = bubble(lst)
+endFirst = time.time() - startFirst
+f.write(str(endFirst) + '\n')
+
+startSecond = time.time()
+lst3 = sort(lst)
+endSecond = time.time() - startSecond
+f.write(str(endSecond) + '\n')
+
+startThird = time.time()
+lst4 = quickSort(lst)
+endThird = time.time() - startThird
+f.write(str(endThird) + '\n')
+
+f.close()
