@@ -1,16 +1,34 @@
 import random
 
-size = int(input())
-lst = []
+def gen():
+    size = int(input())
+    lst = []
 
-for _ in range(size):
-    lst.append(random.randint(0, 20))
+    for _ in range(size):
+        lst.append(random.randint(0, 20))
 
-print(lst)
+    return lst
 
-for i in range(size-1):
-    for j in range(size - i - 1):
-        if lst[j] > lst[j + 1]:
-            lst[j], lst[j + 1] = lst[j + 1], lst[j]
+def bubble(lst):
+    for i in range(len(lst)-1):
+        for j in range(len(lst) - i - 1):
+            if lst[j] > lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
 
-print(lst)
+    return lst
+
+
+def sort(lst):
+    n = len(lst)
+    for i in range(n - 1):
+        m = i
+        for j in range(i + 1, n):
+            if lst[j] < lst[m]:
+                m = j
+        lst[i], lst[m] = lst[m], lst[i]
+
+    return lst
+
+lst = gen()
+print(sort(lst))
+
